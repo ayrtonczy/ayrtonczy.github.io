@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaseCraft — Premium Phone Cases</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0d0a;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c8402a;
+    --gold: #b8913a;
+    --muted: #7a7469;
+    --border: #d6d0c4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--ink); font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width .3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-actions { display: flex; align-items: center; gap: 1rem; }
+  .btn-cart {
+    background: var(--ink); color: var(--paper);
+    border: none; padding: 0.55rem 1.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: background .25s;
+  }
+  .btn-cart:hover { background: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 72px;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 3rem 5rem 4rem;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--muted);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.8rem;
+  }
+  .hero-title .line-accent { color: var(--accent); }
+  .hero-desc {
+    font-size: 1rem; color: var(--muted); line-height: 1.75;
+    max-width: 380px; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--ink); color: var(--paper);
+    padding: 0.9rem 2.2rem; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background .25s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--ink);
+    padding: 0.9rem 2.2rem; border: 1px solid var(--ink); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: all .25s;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+    line-height: 1; color: var(--ink);
+  }
+  .stat-label {
+    font-size: 0.72rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem;
+  }
+
+  .hero-right {
+    background: var(--cream);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-bg-text {
+    position: absolute; font-family: 'Bebas Neue', sans-serif;
+    font-size: 18vw; color: rgba(0,0,0,0.04);
+    line-height: 1; user-select: none; letter-spacing: -0.02em;
+    top: 50%; transform: translateY(-50%);
+    white-space: nowrap;
+  }
+  .hero-phone-stack {
+    position: relative; z-index: 2;
+    display: flex; gap: -20px;
+  }
+  .phone-mockup {
+    width: 160px; height: 320px;
+    border-radius: 28px;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.18), 0 8px 20px rgba(0,0,0,0.12);
+    overflow: hidden;
+    transition: transform .4s ease;
+  }
+  .phone-mockup:hover { transform: scale(1.04) translateY(-8px); }
+  .phone-mockup:nth-child(1) { transform: rotate(-6deg) translateX(20px); background: linear-gradient(145deg, #1a1a2e, #16213e); }
+  .phone-mockup:nth-child(1):hover { transform: rotate(-6deg) translateX(20px) scale(1.05) translateY(-8px); }
+  .phone-mockup:nth-child(2) { transform: translateY(-20px); background: linear-gradient(145deg, #c8402a, #8b1a1a); z-index: 3; }
+  .phone-mockup:nth-child(2):hover { transform: translateY(-28px) scale(1.05); }
+  .phone-mockup:nth-child(3) { transform: rotate(6deg) translateX(-20px); background: linear-gradient(145deg, #2d5016, #1a3009); }
+  .phone-mockup:nth-child(3):hover { transform: rotate(6deg) translateX(-20px) scale(1.05) translateY(-8px); }
+  .phone-screen {
+    position: absolute; inset: 8px; border-radius: 22px;
+    background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .phone-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+    color: rgba(255,255,255,0.5); letter-spacing: 0.1em;
+  }
+  .phone-notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 50px; height: 10px; background: rgba(0,0,0,0.4); border-radius: 8px;
+  }
+  .hero-badge {
+    position: absolute; bottom: 2.5rem; right: 2.5rem;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: var(--accent); color: white;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    animation: spin-badge 12s linear infinite;
+  }
+  .hero-badge .badge-main { font-size: 1.3rem; line-height: 1; }
+  .hero-badge .badge-sub { font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  @keyframes spin-badge {
+    from { transform: rotate(0deg); } to { transform: rotate(360deg); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--ink); padding: 1rem 0; overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    animation: marquee 22s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; color: var(--paper);
+    letter-spacing: 0.15em; white-space: nowrap;
+    display: flex; align-items: center; gap: 3rem;
+  }
+  .marquee-dot { color: var(--accent); font-size: 1.4rem; }
+  @keyframes marquee {
+    from { transform: translateX(0); } to { transform: translateX(-50%); }
+  }
+
+  /* ── OFFERS SECTION ── */
+  .section { padding: 6rem 4rem; }
+  .section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3.5rem;
+  }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.15;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+  .section-link {
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    border-bottom: 1px solid var(--border); padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+  }
+  .section-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Offers grid */
+  .offers-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5px;
+  }
+  .offer-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--cream);
+  }
+  .offer-card:nth-child(1) { grid-row: 1 / 3; min-height: 500px; }
+  .offer-card-inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  }
+  .offer-card-bg {
+    position: absolute; inset: 0;
+    transition: transform .6s ease;
+  }
+  .offer-card:hover .offer-card-bg { transform: scale(1.05); }
+  .offer-card:nth-child(1) .offer-card-bg { background: linear-gradient(135deg, #0f0d0a 0%, #2a1f1a 50%, #c8402a 100%); }
+  .offer-card:nth-child(2) .offer-card-bg { background: linear-gradient(135deg, #1a2a3a, #0a1520); }
+  .offer-card:nth-child(3) .offer-card-bg { background: linear-gradient(135deg, #2d2418, #5c4a30); }
+  .offer-card:nth-child(4) .offer-card-bg { background: linear-gradient(135deg, #1a2a1a, #2d4a2d); }
+  .offer-card:nth-child(5) .offer-card-bg { background: linear-gradient(135deg, #2a1a2a, #4a2d4a); }
+  .offer-tag {
+    display: inline-block; background: var(--accent); color: white;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+  .offer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; color: white; letter-spacing: 0.05em;
+    line-height: 1.1; margin-bottom: 0.4rem;
+  }
+  .offer-card:nth-child(1) .offer-name { font-size: 2.5rem; }
+  .offer-price {
+    color: rgba(255,255,255,0.7); font-size: 0.85rem;
+  }
+  .offer-price strong { color: white; font-size: 1rem; }
+
+  /* decorative phone silhouettes */
+  .offer-deco {
+    position: absolute; font-family: 'Bebas Neue', sans-serif;
+    color: rgba(255,255,255,0.05); font-size: 14rem;
+    top: -1rem; right: -1rem; line-height: 1; user-select: none;
+  }
+
+  /* ── PRODUCTS ── */
+  .products-section { background: var(--cream); }
+  .filter-row {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    background: none; border: 1px solid var(--border);
+    padding: 0.45rem 1.1rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: all .2s; color: var(--muted);
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--ink); border-color: var(--ink); color: var(--paper);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+  }
+  .product-card {
+    background: var(--paper);
+    cursor: pointer; transition: transform .3s;
+    position: relative; overflow: hidden;
+  }
+  .product-card:hover { transform: translateY(-4px); }
+  .product-img {
+    height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; position: relative; overflow: hidden;
+    transition: transform .4s;
+  }
+  .product-card:hover .product-img { transform: scale(1.03); }
+  .product-card:nth-child(4n+1) .product-img { background: linear-gradient(135deg, #e8e4dc, #d4cfc5); }
+  .product-card:nth-child(4n+2) .product-img { background: linear-gradient(135deg, #dce4e8, #c5cfd4); }
+  .product-card:nth-child(4n+3) .product-img { background: linear-gradient(135deg, #e8dce4, #d4c5cf); }
+  .product-card:nth-child(4n+4) .product-img { background: linear-gradient(135deg, #dce8dc, #c5d4c5); }
+  .product-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--accent); color: white;
+    font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 0.25rem 0.6rem;
+  }
+  .product-info { padding: 1.2rem 1.2rem 1.4rem; }
+  .product-compat {
+    font-size: 0.68rem; color: var(--muted);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .product-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem; margin-bottom: 0.6rem;
+  }
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-price { font-size: 1rem; font-weight: 500; }
+  .product-price .old { text-decoration: line-through; color: var(--muted); font-size: 0.8rem; margin-left: 0.4rem; }
+  .btn-add {
+    background: var(--ink); color: var(--paper);
+    border: none; width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.2rem;
+    transition: background .2s;
+  }
+  .btn-add:hover { background: var(--accent); }
+
+  /* ── FEATURES ── */
+  .features-section {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+  .feature-block {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-icon {
+    font-size: 2rem; margin-bottom: 1.2rem;
+  }
+  .feature-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem; margin-bottom: 0.7rem;
+  }
+  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--ink); color: var(--paper); }
+  .testimonials-section .section-title { color: var(--paper); }
+  .testimonials-section .section-label { color: var(--muted); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .testimonial-card {
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .testimonial-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem; color: var(--accent); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .testimonial-text {
+    font-size: 0.9rem; line-height: 1.75;
+    color: rgba(255,255,255,0.75); margin-bottom: 1.5rem;
+  }
+  .testimonial-author {
+    font-size: 0.78rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .stars { color: var(--gold); margin-bottom: 0.8rem; font-size: 0.85rem; }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-section {
+    background: var(--accent); color: white;
+    text-align: center; padding: 5rem 2rem;
+  }
+  .newsletter-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    letter-spacing: 0.05em; margin-bottom: 0.6rem;
+  }
+  .newsletter-sub {
+    font-size: 0.95rem; opacity: 0.8; margin-bottom: 2rem;
+  }
+  .newsletter-form {
+    display: flex; max-width: 460px; margin: 0 auto; gap: 0;
+  }
+  .newsletter-input {
+    flex: 1; padding: 0.9rem 1.3rem;
+    border: none; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none;
+    background: rgba(255,255,255,0.15);
+    color: white; border: 1px solid rgba(255,255,255,0.3);
+  }
+  .newsletter-input::placeholder { color: rgba(255,255,255,0.6); }
+  .newsletter-btn {
+    background: white; color: var(--accent);
+    border: none; padding: 0 1.8rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: opacity .2s;
+  }
+  .newsletter-btn:hover { opacity: 0.9; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: var(--paper);
+    padding: 4rem 4rem 2rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-brand .nav-logo { display: block; margin-bottom: 1rem; }
+  .footer-brand p {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.7; max-width: 240px;
+  }
+  .footer-col h4 {
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.7rem; }
+  .footer-col a {
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 0.88rem; transition: color .2s;
+  }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── CART DRAWER ── */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 200; opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-drawer {
+    position: fixed; top: 0; right: -440px; bottom: 0; width: 420px;
+    background: var(--paper); z-index: 201;
+    transition: right .35s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column;
+    box-shadow: -8px 0 40px rgba(0,0,0,0.2);
+  }
+  .cart-drawer.open { right: 0; }
+  .cart-head {
+    padding: 1.2rem 1.6rem; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-head h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; }
+  .btn-close { background: none; border: none; cursor: pointer; font-size: 1.3rem; color: var(--muted); transition: color .2s; }
+  .btn-close:hover { color: var(--accent); }
+  .btn-clear { background: none; border: 1px solid var(--border); color: var(--muted); padding: 0.25rem 0.7rem; font-family: 'DM Sans',sans-serif; font-size: 0.72rem; cursor: pointer; transition: all .2s; }
+  .btn-clear:hover { border-color: var(--accent); color: var(--accent); }
+  .cart-body { flex: 1; overflow-y: auto; padding: 0 1.6rem; }
+  .cart-item {
+    display: flex; gap: 0.9rem; padding: 1rem 0; border-bottom: 1px solid var(--border); align-items: center;
+  }
+  .cart-item-img {
+    width: 62px; height: 62px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.9rem; background: var(--cream); flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; min-width: 0; }
+  .cart-item-name { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cart-item-sub { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .cart-item-controls { display: flex; align-items: center; gap: 0.5rem; }
+  .qty-btn {
+    width: 26px; height: 26px; background: var(--cream); border: 1px solid var(--border);
+    cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    transition: all .2s; color: var(--ink); font-family: 'DM Sans',sans-serif;
+  }
+  .qty-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .qty-num { font-size: 0.85rem; font-weight: 500; min-width: 20px; text-align: center; }
+  .btn-remove { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1rem; padding: 0.2rem; transition: color .2s; flex-shrink: 0; }
+  .btn-remove:hover { color: var(--accent); }
+  .cart-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
+  .cart-item-price { font-weight: 500; font-size: 0.9rem; }
+  .cart-foot { padding: 1rem 1.6rem 1.4rem; border-top: 1px solid var(--border); }
+  .cart-subtotal-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .cart-total { display: flex; justify-content: space-between; font-weight: 600; font-size: 1rem; margin: 0.7rem 0 1rem; padding-top: 0.7rem; border-top: 1px solid var(--border); }
+  .btn-checkout {
+    width: 100%; background: var(--ink); color: var(--paper); border: none; padding: 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background .2s;
+  }
+  .btn-checkout:hover { background: var(--accent); }
+  .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: 0.9rem; }
+  .cart-empty .cart-empty-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+
+  /* ── CHECKOUT MODAL ── */
+  .checkout-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    z-index: 300; opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .checkout-overlay.open { opacity: 1; pointer-events: all; }
+  .checkout-modal {
+    position: fixed; inset: 0; z-index: 301;
+    background: var(--paper); overflow-y: auto;
+    transform: translateY(100%); transition: transform .4s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column;
+  }
+  .checkout-modal.open { transform: translateY(0); }
+  .checkout-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2rem; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--paper); z-index: 10;
+  }
+  .checkout-steps {
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.2rem 2rem; gap: 0; border-bottom: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .co-step {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; color: var(--muted); font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .co-step.active { color: var(--ink); }
+  .co-step.done { color: var(--accent); }
+  .co-step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--border); color: var(--muted);
+    font-size: 0.72rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .co-step.active .co-step-num { background: var(--ink); color: white; }
+  .co-step.done .co-step-num { background: var(--accent); color: white; }
+  .co-step-line { width: 48px; height: 1px; background: var(--border); margin: 0 0.8rem; }
+  .checkout-body {
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 0; flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 2rem 2rem;
+    align-items: start; gap: 3rem;
+  }
+  .checkout-form-col { min-width: 0; }
+  .co-panel { display: none; }
+  .co-panel.active { display: block; }
+  .co-panel-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 1.5rem; }
+  .co-field { margin-bottom: 1rem; }
+  .co-field label { display: block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .co-field input, .co-field select {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border);
+    background: white; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    color: var(--ink); outline: none; transition: border-color .2s;
+  }
+  .co-field input:focus, .co-field select:focus { border-color: var(--ink); }
+  .co-field-row { display: flex; gap: 1rem; }
+  .co-field-row .co-field { flex: 1; }
+  .co-shipping-options { margin: 1.2rem 0; }
+  .co-label-sm { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.7rem; }
+  .co-ship-opt {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 1rem; border: 1px solid var(--border); margin-bottom: 0.5rem;
+    cursor: pointer; transition: all .2s; background: white;
+  }
+  .co-ship-opt:hover { border-color: var(--ink); }
+  .co-ship-opt.selected { border-color: var(--ink); background: var(--cream); }
+  .co-ship-opt strong { font-size: 0.88rem; display: block; }
+  .co-ship-eta { font-size: 0.75rem; color: var(--muted); }
+  .co-ship-price { font-weight: 600; font-size: 0.9rem; }
+  .btn-co-next {
+    width: 100%; background: var(--ink); color: var(--paper); border: none;
+    padding: 1rem; margin-top: 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background .2s;
+  }
+  .btn-co-next:hover { background: var(--accent); }
+  .btn-co-back {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    padding: 0.9rem 1.6rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+    cursor: pointer; transition: all .2s; letter-spacing: 0.06em;
+  }
+  .btn-co-back:hover { border-color: var(--ink); color: var(--ink); }
+  .co-nav-row { display: flex; gap: 1rem; margin-top: 1.2rem; }
+  .co-nav-row .btn-co-next { margin-top: 0; flex: 1; }
+  .co-pay-methods { display: flex; gap: 0.6rem; margin-bottom: 1.4rem; }
+  .co-pay-btn {
+    flex: 1; padding: 0.7rem; border: 1px solid var(--border); background: white;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all .2s;
+  }
+  .co-pay-btn.active { border-color: var(--ink); background: var(--cream); font-weight: 500; }
+  .co-alt-pay { background: var(--cream); border: 1px solid var(--border); padding: 1.5rem; text-align: center; color: var(--muted); font-size: 0.88rem; }
+  .btn-promo {
+    background: var(--ink); color: var(--paper); border: none; padding: 0 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: background .2s;
+    white-space: nowrap;
+  }
+  .btn-promo:hover { background: var(--accent); }
+  .co-review-section { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .co-review-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.4rem; }
+  .co-review-val { font-size: 0.88rem; line-height: 1.6; }
+  .co-review-total { margin: 1.2rem 0; }
+  .co-review-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 0.35rem 0; }
+  .co-review-grand { font-weight: 700; font-size: 1rem; border-top: 1px solid var(--border); margin-top: 0.4rem; padding-top: 0.7rem; }
+  .co-terms { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; color: var(--muted); margin-top: 1rem; cursor: pointer; }
+  .co-terms a { color: var(--ink); }
+  .btn-place-order {
+    flex: 1; background: var(--accent); color: white; border: none; padding: 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: opacity .2s;
+  }
+  .btn-place-order:hover { opacity: 0.88; }
+  .co-success { text-align: center; padding: 3rem 1rem; }
+  .co-success-icon {
+    width: 70px; height: 70px; border-radius: 50%; background: var(--accent);
+    color: white; font-size: 2rem; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+  .co-success h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 0.8rem; }
+  .co-success p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.7; }
+  .co-order-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--accent); margin: 1rem 0 0.4rem; }
+  .co-success-eta { font-size: 0.85rem; color: var(--muted); }
+  .checkout-summary-col {
+    background: var(--cream); border: 1px solid var(--border); padding: 1.6rem;
+    position: sticky; top: 100px;
+  }
+  .co-summary-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+  .co-sum-item { display: flex; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); align-items: center; }
+  .co-sum-item-img { width: 46px; height: 46px; background: white; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; border-radius: 4px; }
+  .co-sum-item-info { flex: 1; min-width: 0; }
+  .co-sum-item-name { font-size: 0.82rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .co-sum-item-sub { font-size: 0.72rem; color: var(--muted); }
+  .co-sum-item-price { font-size: 0.85rem; font-weight: 500; flex-shrink: 0; }
+  .co-summary-totals { margin-top: 1rem; }
+  .co-sum-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 0.3rem 0; }
+  .co-sum-total { font-weight: 700; font-size: 1rem; border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 0.7rem; }
+  .co-trust { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .co-trust span { font-size: 0.72rem; color: var(--muted); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp .7s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: .1s; }
+  .hero-left > *:nth-child(2) { animation-delay: .2s; }
+  .hero-left > *:nth-child(3) { animation-delay: .35s; }
+  .hero-left > *:nth-child(4) { animation-delay: .5s; }
+  .hero-left > *:nth-child(5) { animation-delay: .65s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>Case</span>Craft</a>
+  <ul class="nav-links">
+    <li><a href="#offers">Offers</a></li>
+    <li><a href="#products">Shop</a></li>
+    <li><a href="about-us.html">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-cart" onclick="toggleCart()">🛒 Cart <span id="cart-count">0</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">New Season 2026</p>
+    <h1 class="hero-title">
+      Protect<br>
+      Your <span class="line-accent">World.</span><br>
+      In Style.
+    </h1>
+    <p class="hero-desc">
+      Handcrafted phone cases built for the bold. Premium materials, military-grade drop protection, and designs that turn heads.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+      <button class="btn-outline" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">View Offers</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">50K+</div><div class="stat-label">Happy Customers</div></div>
+      <div><div class="stat-num">200+</div><div class="stat-label">Case Designs</div></div>
+      <div><div class="stat-num">4.9★</div><div class="stat-label">Avg Rating</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">CASE</div>
+    <div class="hero-phone-stack">
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-screen"><span class="phone-logo">CC</span></div>
+      </div>
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-screen"><span class="phone-logo">CC</span></div>
+      </div>
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-screen"><span class="phone-logo">CC</span></div>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <span class="badge-main">FREE</span>
+      <span class="badge-sub">Shipping</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Premium Materials <span class="marquee-dot">◆</span> Drop Protection <span class="marquee-dot">◆</span> 50,000+ Customers <span class="marquee-dot">◆</span> Free Shipping <span class="marquee-dot">◆</span> 30-Day Returns <span class="marquee-dot">◆</span> Lifetime Warranty <span class="marquee-dot">◆</span> Premium Materials <span class="marquee-dot">◆</span> Drop Protection <span class="marquee-dot">◆</span> 50,000+ Customers <span class="marquee-dot">◆</span> Free Shipping <span class="marquee-dot">◆</span> 30-Day Returns <span class="marquee-dot">◆</span> Lifetime Warranty <span class="marquee-dot">◆</span></div>
+  </div>
+</div>
+
+<!-- OFFERS -->
+<section id="offers" class="section">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Limited Time</p>
+      <h2 class="section-title">Hot <em>Deals</em> &amp; Bundles</h2>
+    </div>
+    <a href="#products" class="section-link">All Products →</a>
+  </div>
+  <div class="offers-grid">
+    <div class="offer-card">
+      <div class="offer-card-bg"></div>
+      <div class="offer-deco">📱</div>
+      <div class="offer-card-inner">
+        <span class="offer-tag">🔥 50% OFF</span>
+        <div class="offer-name">Summer<br>Collection Bundle</div>
+        <div class="offer-price">From <strong>$19.99</strong> <span style="text-decoration:line-through;opacity:.5">$39.99</span></div>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-card-bg"></div>
+      <div class="offer-card-inner">
+        <span class="offer-tag">Buy 2 Get 1</span>
+        <div class="offer-name">iPhone 16 Series</div>
+        <div class="offer-price">From <strong>$24.99</strong></div>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-card-bg"></div>
+      <div class="offer-card-inner">
+        <span class="offer-tag">New Arrival</span>
+        <div class="offer-name">Leather Edition</div>
+        <div class="offer-price">From <strong>$44.99</strong></div>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-card-bg"></div>
+      <div class="offer-card-inner">
+        <span class="offer-tag">Clearance</span>
+        <div class="offer-name">Samsung Galaxy</div>
+        <div class="offer-price">From <strong>$14.99</strong></div>
+      </div>
+    </div>
+    <div class="offer-card">
+      <div class="offer-card-bg"></div>
+      <div class="offer-card-inner">
+        <span class="offer-tag">Bundle Deal</span>
+        <div class="offer-name">Pixel + Screen Pack</div>
+        <div class="offer-price">From <strong>$34.99</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section products-section">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Our Collection</p>
+      <h2 class="section-title">Shop <em>All Cases</em></h2>
+    </div>
+  </div>
+  <div class="filter-row">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">iPhone</button>
+    <button class="filter-btn">Samsung</button>
+    <button class="filter-btn">Google Pixel</button>
+    <button class="filter-btn">Leather</button>
+    <button class="filter-btn">Rugged</button>
+    <button class="filter-btn">Clear</button>
+  </div>
+  <div class="products-grid" id="product-grid"></div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" style="padding:0">
+  <div class="features-section">
+    <div class="feature-block">
+      <div class="feature-icon">🛡️</div>
+      <h3 class="feature-title">Military-Grade Protection</h3>
+      <p class="feature-desc">MIL-STD-810H certified drop protection for falls up to 6.6 feet. Your phone survives whatever life throws at it.</p>
+    </div>
+    <div class="feature-block">
+      <div class="feature-icon">✋</div>
+      <h3 class="feature-title">Precision Craftsmanship</h3>
+      <p class="feature-desc">Exact-fit cutouts for ports, buttons and cameras. Every case is designed specifically for your device model.</p>
+    </div>
+    <div class="feature-block">
+      <div class="feature-icon">♻️</div>
+      <h3 class="feature-title">Eco-Friendly Materials</h3>
+      <p class="feature-desc">Sustainably sourced materials and plastic-free packaging. Looking good and doing good for the planet.</p>
+    </div>
+    <div class="feature-block">
+      <div class="feature-icon">🚚</div>
+      <h3 class="feature-title">Free Fast Shipping</h3>
+      <p class="feature-desc">Free express shipping on all orders over $30. Most orders delivered within 2–3 business days Australia-wide.</p>
+    </div>
+    <div class="feature-block">
+      <div class="feature-icon">↩️</div>
+      <h3 class="feature-title">30-Day Returns</h3>
+      <p class="feature-desc">Not happy? Return within 30 days for a full refund, no questions asked. We stand behind every product we sell.</p>
+    </div>
+    <div class="feature-block">
+      <div class="feature-icon">💬</div>
+      <h3 class="feature-title">24/7 Support</h3>
+      <p class="feature-desc">Our team is always on hand to help you choose the right case or sort out any issues, fast.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Reviews</p>
+      <h2 class="section-title">What Our <em>Customers</em> Say</h2>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Dropped my phone down a flight of concrete stairs. Not a scratch on the screen. Absolutely worth every dollar — best case I've ever owned.</p>
+      <div class="testimonial-author">— Sarah M., Melbourne</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">The leather edition is stunning. Feels premium, fits perfectly, and the stitching is impeccable. Shipping was super fast too!</p>
+      <div class="testimonial-author">— James K., Sydney</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Bought the bundle deal and gifted two to friends. They're all obsessed. CaseCraft is the only brand I'll ever use now.</p>
+      <div class="testimonial-author">— Priya L., Brisbane</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <h2 class="newsletter-title">Get 15% Off Your First Order</h2>
+  <p class="newsletter-sub">Subscribe for exclusive deals, new arrivals and style inspiration.</p>
+  <div class="newsletter-form">
+    <input type="email" class="newsletter-input" placeholder="Your email address">
+    <button class="newsletter-btn">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#"><span>Case</span>Craft</a>
+      <p>Premium phone cases designed for everyday life. Protecting what matters most — in style.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">iPhone Cases</a></li>
+        <li><a href="#">Samsung Cases</a></li>
+        <li><a href="#">Pixel Cases</a></li>
+        <li><a href="#">Bundles</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#" id="contact">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 CaseCraft. All rights reserved.</p>
+    <p>Privacy Policy · Terms of Service · ABN 12 345 678 901</p>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-head">
+    <h3>Your Cart (<span id="cart-head-count">0</span>)</h3>
+    <div style="display:flex;gap:0.6rem;align-items:center">
+      <button class="btn-clear" id="btn-clear" onclick="clearCart()" style="display:none">Clear all</button>
+      <button class="btn-close" onclick="toggleCart()">✕</button>
+    </div>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-foot" id="cart-foot" style="display:none">
+    <div class="cart-subtotal-row"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+    <div class="cart-subtotal-row" style="color:var(--muted);font-size:0.82rem"><span>Shipping</span><span id="cart-shipping">Free</span></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total">$0.00</span></div>
+    <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-overlay" id="checkout-overlay"></div>
+<div class="checkout-modal" id="checkout-modal">
+  <div class="checkout-header">
+    <a class="nav-logo" href="#" style="font-size:1.3rem"><span>Case</span>Craft</a>
+    <button class="btn-close" onclick="closeCheckout()">✕</button>
+  </div>
+
+  <!-- STEP INDICATORS -->
+  <div class="checkout-steps">
+    <div class="co-step active" id="cstep-1"><span class="co-step-num">1</span> Delivery</div>
+    <div class="co-step-line"></div>
+    <div class="co-step" id="cstep-2"><span class="co-step-num">2</span> Payment</div>
+    <div class="co-step-line"></div>
+    <div class="co-step" id="cstep-3"><span class="co-step-num">3</span> Confirm</div>
+  </div>
+
+  <div class="checkout-body">
+    <!-- LEFT: FORM PANELS -->
+    <div class="checkout-form-col">
+
+      <!-- PANEL 1: DELIVERY -->
+      <div class="co-panel active" id="co-panel-1">
+        <h2 class="co-panel-title">Delivery Details</h2>
+        <div class="co-field-row">
+          <div class="co-field">
+            <label>First Name</label>
+            <input type="text" id="co-fname" placeholder="Sarah">
+          </div>
+          <div class="co-field">
+            <label>Last Name</label>
+            <input type="text" id="co-lname" placeholder="Chen">
+          </div>
+        </div>
+        <div class="co-field">
+          <label>Email Address</label>
+          <input type="email" id="co-email" placeholder="sarah@email.com">
+        </div>
+        <div class="co-field">
+          <label>Phone</label>
+          <input type="tel" id="co-phone" placeholder="04XX XXX XXX">
+        </div>
+        <div class="co-field">
+          <label>Street Address</label>
+          <input type="text" id="co-address" placeholder="123 Collins Street">
+        </div>
+        <div class="co-field-row">
+          <div class="co-field">
+            <label>City / Suburb</label>
+            <input type="text" id="co-city" placeholder="Melbourne">
+          </div>
+          <div class="co-field" style="flex:0 0 110px">
+            <label>Postcode</label>
+            <input type="text" id="co-postcode" placeholder="3000" maxlength="4">
+          </div>
+        </div>
+        <div class="co-field">
+          <label>State</label>
+          <select id="co-state">
+            <option value="">Select state</option>
+            <option>VIC</option><option>NSW</option><option>QLD</option>
+            <option>WA</option><option>SA</option><option>TAS</option>
+            <option>ACT</option><option>NT</option>
+          </select>
+        </div>
+        <div class="co-shipping-options">
+          <label class="co-label-sm">Shipping Method</label>
+          <div class="co-ship-opt selected" onclick="selectShipping(this,'free','Free','Free Standard (3–5 days)')">
+            <div><strong>Free Standard</strong><span class="co-ship-eta">3–5 business days</span></div>
+            <span class="co-ship-price">Free</span>
+          </div>
+          <div class="co-ship-opt" onclick="selectShipping(this,'9.99','$9.99','Express (1–2 days)')">
+            <div><strong>Express</strong><span class="co-ship-eta">1–2 business days</span></div>
+            <span class="co-ship-price">$9.99</span>
+          </div>
+          <div class="co-ship-opt" onclick="selectShipping(this,'14.99','$14.99','Same Day (Today)')">
+            <div><strong>Same Day</strong><span class="co-ship-eta">Metro Melbourne only</span></div>
+            <span class="co-ship-price">$14.99</span>
+          </div>
+        </div>
+        <button class="btn-co-next" onclick="goStep(2)">Continue to Payment →</button>
+      </div>
+
+      <!-- PANEL 2: PAYMENT -->
+      <div class="co-panel" id="co-panel-2">
+        <h2 class="co-panel-title">Payment</h2>
+        <div class="co-pay-methods">
+          <button class="co-pay-btn active" onclick="selectPayMethod(this,'card')">💳 Card</button>
+          <button class="co-pay-btn" onclick="selectPayMethod(this,'paypal')">🅿️ PayPal</button>
+          <button class="co-pay-btn" onclick="selectPayMethod(this,'applepay')">🍎 Apple Pay</button>
+        </div>
+        <div id="card-fields">
+          <div class="co-field">
+            <label>Name on Card</label>
+            <input type="text" id="co-cardname" placeholder="Sarah Chen">
+          </div>
+          <div class="co-field">
+            <label>Card Number</label>
+            <input type="text" id="co-cardnum" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)">
+          </div>
+          <div class="co-field-row">
+            <div class="co-field">
+              <label>Expiry</label>
+              <input type="text" id="co-expiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+            </div>
+            <div class="co-field">
+              <label>CVV</label>
+              <input type="text" id="co-cvv" placeholder="•••" maxlength="3">
+            </div>
+          </div>
+        </div>
+        <div id="paypal-fields" style="display:none" class="co-alt-pay">
+          <p>You'll be redirected to PayPal to complete your payment securely.</p>
+        </div>
+        <div id="applepay-fields" style="display:none" class="co-alt-pay">
+          <p>Use Touch ID or Face ID to pay with Apple Pay.</p>
+        </div>
+        <div class="co-field" style="margin-top:1rem">
+          <label>Promo Code</label>
+          <div style="display:flex;gap:0.5rem">
+            <input type="text" id="co-promo" placeholder="CASECRAFT15" style="flex:1">
+            <button class="btn-promo" onclick="applyPromo()">Apply</button>
+          </div>
+          <div id="promo-msg" style="font-size:0.78rem;margin-top:0.4rem"></div>
+        </div>
+        <div class="co-nav-row">
+          <button class="btn-co-back" onclick="goStep(1)">← Back</button>
+          <button class="btn-co-next" onclick="goStep(3)">Review Order →</button>
+        </div>
+      </div>
+
+      <!-- PANEL 3: CONFIRM -->
+      <div class="co-panel" id="co-panel-3">
+        <h2 class="co-panel-title">Review & Place Order</h2>
+        <div class="co-review-section">
+          <div class="co-review-label">Delivering to</div>
+          <div id="co-review-address" class="co-review-val"></div>
+        </div>
+        <div class="co-review-section">
+          <div class="co-review-label">Payment</div>
+          <div id="co-review-payment" class="co-review-val"></div>
+        </div>
+        <div class="co-review-section">
+          <div class="co-review-label">Items</div>
+          <div id="co-review-items"></div>
+        </div>
+        <div class="co-review-total">
+          <div class="co-review-row"><span>Subtotal</span><span id="co-rev-sub"></span></div>
+          <div class="co-review-row"><span>Shipping</span><span id="co-rev-ship"></span></div>
+          <div class="co-review-row" id="co-rev-discount-row" style="display:none;color:var(--accent)"><span>Discount</span><span id="co-rev-discount"></span></div>
+          <div class="co-review-row co-review-grand"><span>Total</span><span id="co-rev-total"></span></div>
+        </div>
+        <label class="co-terms">
+          <input type="checkbox" id="co-agree"> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        </label>
+        <div class="co-nav-row">
+          <button class="btn-co-back" onclick="goStep(2)">← Back</button>
+          <button class="btn-place-order" onclick="placeOrder()">🔒 Place Order</button>
+        </div>
+      </div>
+
+      <!-- PANEL 4: SUCCESS -->
+      <div class="co-panel" id="co-panel-success">
+        <div class="co-success">
+          <div class="co-success-icon">✓</div>
+          <h2>Order Confirmed!</h2>
+          <p>Thank you for your order. A confirmation has been sent to <strong id="co-success-email"></strong>.</p>
+          <div class="co-order-num">Order #<span id="co-order-id"></span></div>
+          <p class="co-success-eta" id="co-success-eta"></p>
+          <button class="btn-co-next" style="margin-top:2rem" onclick="closeCheckout()">Back to Shop</button>
+        </div>
+      </div>
+
+    </div><!-- /checkout-form-col -->
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="checkout-summary-col">
+      <h3 class="co-summary-title">Order Summary</h3>
+      <div id="co-summary-items"></div>
+      <div class="co-summary-totals">
+        <div class="co-sum-row"><span>Subtotal</span><span id="co-sum-sub"></span></div>
+        <div class="co-sum-row"><span>Shipping</span><span id="co-sum-ship">Free</span></div>
+        <div class="co-sum-row" id="co-sum-discount-row" style="display:none;color:var(--accent)"><span>Discount</span><span id="co-sum-discount"></span></div>
+        <div class="co-sum-row co-sum-total"><span>Total</span><span id="co-sum-total"></span></div>
+      </div>
+      <div class="co-trust">
+        <span>🔒 SSL Secured</span>
+        <span>↩️ 30-Day Returns</span>
+        <span>🚚 Fast Shipping</span>
+      </div>
+    </div>
+
+  </div><!-- /checkout-body -->
+</div>
+
+<script>
+const products = [
+  { id:1, name:'Phantom Shield', compat:'iPhone 16 Pro', price:34.99, img:'images/1-phantom-shield.png', badge:'Bestseller' },
+  { id:2, name:'Noir Leather', compat:'iPhone 16 / 16 Plus', price:54.99, old:69.99, img:'images/2-noir-leather.png', badge:'Premium' },
+  { id:3, name:'Crystal Clear', compat:'Samsung Galaxy S25', price:22.99, img:'images/3-crystal-clear.png', badge:'New' },
+  { id:4, name:'Terra Rugged', compat:'Google Pixel 9', price:39.99, img:'images/4-terra-rugged.png', badge:'Sale' },
+  { id:5, name:'Rose Bloom', compat:'iPhone 16 Pro Max', price:28.99, img:'images/5-rose-bloom.png', badge:'' },
+  { id:6, name:'Stealth Matte', compat:'Samsung Galaxy S25+', price:26.99, old:34.99, img:'images/6-stealth-matte.png', badge:'Sale' },
+  { id:7, name:'Vintage Brown', compat:'iPhone 15 Series', price:44.99, img:'images/7-vintage-brown.png', badge:'Classic' },
+  { id:8, name:'Neon Edge', compat:'Google Pixel 9 Pro', price:32.99, img:'images/8-neon-edges.png', badge:'New' },
+];
+
+// ── PRODUCT GRID ──
+const grid = document.getElementById('product-grid');
+products.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+    <div class="product-img">
+      <img src="${p.img}" alt="${p.name}" style="width:75%;height:auto;">
+      ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+    </div>
+    <div class="product-info">
+      <div class="product-compat">${p.compat}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-footer">
+        <div class="product-price">$${p.price.toFixed(2)} ${p.old ? `<span class="old">$${p.old.toFixed(2)}</span>` : ''}</div>
+        <button class="btn-add" onclick="addToCart(${p.id})">+</button>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+// ── CART STATE ──
+let cart = [];
+let shippingCost = 0;
+let shippingLabel = 'Free';
+let shippingMethod = 'Free Standard (3–5 days)';
+let discountAmount = 0;
+let discountCode = '';
+
+// ── CART ACTIONS ──
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  const existing = cart.find(x => x.id === id);
+  if (existing) existing.qty++;
+  else cart.push({ ...p, qty: 1 });
+  updateCart();
+  if (!document.getElementById('cart-drawer').classList.contains('open')) toggleCart();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(x => x.id !== id);
+  updateCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(x => x.id !== id);
+  updateCart();
+}
+
+function clearCart() {
+  if (!confirm('Remove all items from your cart?')) return;
+  cart = [];
+  discountAmount = 0;
+  discountCode = '';
+  updateCart();
+}
+
+function updateCart() {
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count    = cart.reduce((s, i) => s + i.qty, 0);
+  const total    = subtotal + shippingCost - discountAmount;
+
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-head-count').textContent = count;
+  document.getElementById('cart-subtotal').textContent = '$' + subtotal.toFixed(2);
+  document.getElementById('cart-shipping').textContent = shippingLabel;
+  document.getElementById('cart-total').textContent = '$' + Math.max(0, total).toFixed(2);
+
+  const btnClear = document.getElementById('btn-clear');
+  if (btnClear) btnClear.style.display = cart.length ? 'block' : 'none';
+
+  const body = document.getElementById('cart-body');
+  const foot = document.getElementById('cart-foot');
+
+  if (cart.length === 0) {
+    body.innerHTML = `<div class="cart-empty" style="padding-top:2rem"><span class="cart-empty-icon">🛒</span>Your cart is empty</div>`;
+    foot.style.display = 'none';
+  } else {
+    body.innerHTML = cart.map(i => `
+      <div class="cart-item">
+        <div class="cart-item-img">
+          <img src="${i.img}" alt="${i.name}" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-sub">${i.compat}</div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+            <span class="qty-num">${i.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+          </div>
+        </div>
+        <div class="cart-item-right">
+          <button class="btn-remove" onclick="removeItem(${i.id})" title="Remove">🗑</button>
+          <div class="cart-item-price">$${(i.price * i.qty).toFixed(2)}</div>
+        </div>
+      </div>`).join('');
+    foot.style.display = 'block';
+  }
+
+  updateCheckoutSummary();
+}
+
+function toggleCart() {
+  document.getElementById('cart-overlay').classList.toggle('open');
+  document.getElementById('cart-drawer').classList.toggle('open');
+}
+
+// ── CHECKOUT ──
+let currentStep = 1;
+
+function openCheckout() {
+  if (cart.length === 0) return;
+  toggleCart();
+  document.getElementById('checkout-overlay').classList.add('open');
+  document.getElementById('checkout-modal').classList.add('open');
+  goStep(1);
+  updateCheckoutSummary();
+}
+
+function closeCheckout() {
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.getElementById('checkout-modal').classList.remove('open');
+}
+
+function goStep(step) {
+  // Validate step 1
+  if (step === 2) {
+    const req = ['co-fname','co-lname','co-email','co-address','co-city','co-postcode','co-state'];
+    for (const id of req) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.focus(); el.style.borderColor = '#c8402a';
+        el.addEventListener('input', () => el.style.borderColor = '', { once: true });
+        return;
+      }
+    }
+  }
+  // Validate step 2
+  if (step === 3) {
+    const active = document.querySelector('.co-pay-btn.active');
+    const method = active ? active.textContent.trim() : '';
+    if (method.includes('Card')) {
+      const req2 = ['co-cardname','co-cardnum','co-expiry','co-cvv'];
+      for (const id of req2) {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.focus(); el.style.borderColor = '#c8402a'; el.addEventListener('input', () => el.style.borderColor='',{once:true}); return; }
+      }
+    }
+    buildReview();
+  }
+
+  currentStep = step;
+  document.querySelectorAll('.co-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('co-panel-' + step).classList.add('active');
+  document.querySelectorAll('.co-step').forEach((s, i) => {
+    s.classList.remove('active','done');
+    if (i + 1 === step) s.classList.add('active');
+    else if (i + 1 < step) s.classList.add('done');
+  });
+  document.querySelector('.checkout-modal').scrollTo(0, 0);
+}
+
+function buildReview() {
+  const fname = document.getElementById('co-fname').value;
+  const lname = document.getElementById('co-lname').value;
+  const email = document.getElementById('co-email').value;
+  const addr  = document.getElementById('co-address').value;
+  const city  = document.getElementById('co-city').value;
+  const state = document.getElementById('co-state').value;
+  const post  = document.getElementById('co-postcode').value;
+  document.getElementById('co-review-address').innerHTML =
+    `${fname} ${lname}<br>${addr}, ${city} ${state} ${post}<br>${email}`;
+
+  const payBtn = document.querySelector('.co-pay-btn.active');
+  const payMethod = payBtn ? payBtn.textContent.trim() : 'Card';
+  const cardNum = document.getElementById('co-cardnum').value;
+  document.getElementById('co-review-payment').textContent =
+    payMethod.includes('Card') && cardNum
+      ? `${payMethod} ending in ${cardNum.replace(/\s/g,'').slice(-4)}`
+      : payMethod;
+
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const total = Math.max(0, subtotal + shippingCost - discountAmount);
+  document.getElementById('co-review-items').innerHTML = cart.map(i =>
+    `<div style="font-size:0.84rem;padding:0.3rem 0;display:flex;justify-content:space-between">
+      <span>${i.qty}× ${i.name}</span><span>$${(i.price*i.qty).toFixed(2)}</span>
+    </div>`).join('');
+  document.getElementById('co-rev-sub').textContent = '$' + subtotal.toFixed(2);
+  document.getElementById('co-rev-ship').textContent = shippingLabel;
+  document.getElementById('co-rev-total').textContent = '$' + total.toFixed(2);
+  if (discountAmount > 0) {
+    document.getElementById('co-rev-discount-row').style.display = 'flex';
+    document.getElementById('co-rev-discount').textContent = '-$' + discountAmount.toFixed(2);
+  }
+}
+
+function placeOrder() {
+  if (!document.getElementById('co-agree').checked) {
+    alert('Please agree to the Terms of Service to continue.');
+    return;
+  }
+  const orderId = 'CC-' + Math.random().toString(36).substr(2,6).toUpperCase();
+  const email = document.getElementById('co-email').value;
+  document.getElementById('co-success-email').textContent = email;
+  document.getElementById('co-order-id').textContent = orderId;
+  document.getElementById('co-success-eta').textContent = 'Estimated delivery: ' + shippingMethod;
+
+  document.querySelectorAll('.co-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('co-panel-success').classList.add('active');
+  document.querySelector('.checkout-steps').style.display = 'none';
+
+  cart = []; discountAmount = 0; discountCode = '';
+  updateCart();
+}
+
+function selectShipping(el, cost, label, method) {
+  document.querySelectorAll('.co-ship-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  shippingCost = cost === 'free' ? 0 : parseFloat(cost);
+  shippingLabel = label;
+  shippingMethod = method;
+  updateCart();
+}
+
+function selectPayMethod(btn, method) {
+  document.querySelectorAll('.co-pay-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('card-fields').style.display    = method === 'card'     ? 'block' : 'none';
+  document.getElementById('paypal-fields').style.display  = method === 'paypal'   ? 'block' : 'none';
+  document.getElementById('applepay-fields').style.display = method === 'applepay' ? 'block' : 'none';
+}
+
+function applyPromo() {
+  const code = document.getElementById('co-promo').value.trim().toUpperCase();
+  const msg  = document.getElementById('promo-msg');
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  if (code === 'CASECRAFT15') {
+    discountAmount = subtotal * 0.15;
+    msg.style.color = '#107c10';
+    msg.textContent = '✓ 15% discount applied!';
+  } else if (code === 'SAVE10') {
+    discountAmount = 10;
+    msg.style.color = '#107c10';
+    msg.textContent = '✓ $10 discount applied!';
+  } else {
+    discountAmount = 0;
+    msg.style.color = '#c8402a';
+    msg.textContent = '✗ Invalid promo code.';
+  }
+  updateCart();
+  updateCheckoutSummary();
+}
+
+function formatCard(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,16);
+  input.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,4);
+  if (v.length >= 3) v = v.substring(0,2) + ' / ' + v.substring(2);
+  input.value = v;
+}
+
+function updateCheckoutSummary() {
+  const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  const total    = Math.max(0, subtotal + shippingCost - discountAmount);
+  const el = id => document.getElementById(id);
+  if (el('co-sum-sub'))   el('co-sum-sub').textContent   = '$' + subtotal.toFixed(2);
+  if (el('co-sum-ship'))  el('co-sum-ship').textContent  = shippingLabel;
+  if (el('co-sum-total')) el('co-sum-total').textContent = '$' + total.toFixed(2);
+  if (discountAmount > 0 && el('co-sum-discount-row')) {
+    el('co-sum-discount-row').style.display = 'flex';
+    el('co-sum-discount').textContent = '-$' + discountAmount.toFixed(2);
+  }
+  const itemsEl = document.getElementById('co-summary-items');
+  if (itemsEl) {
+    itemsEl.innerHTML = cart.map(i => `
+      <div class="co-sum-item">
+        <div class="co-sum-item-img">
+          <img src="${i.img}" alt="${i.name}" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="co-sum-item-info">
+          <div class="co-sum-item-name">${i.name}</div>
+          <div class="co-sum-item-sub">Qty: ${i.qty}</div>
+        </div>
+        <div class="co-sum-item-price">$${(i.price*i.qty).toFixed(2)}</div>
+      </div>`).join('');
+  }
+}
+
+// ── FILTERS ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+updateCart();
+</script>
+</body>
+</html>
